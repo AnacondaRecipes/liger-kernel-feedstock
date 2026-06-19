@@ -55,6 +55,9 @@ about:
   dev_url: https://github.com/linkedin/Liger-Kernel
 
 extra:
+  skip-lints:
+    # pytorch is a CBC-pinned runtime-only dep (pure-Python; not linked at build)
+    - cbc_dep_in_run_missing_from_host
   recipe-maintainers:
     - chrisdeutsch
     - LeeNethertonQC

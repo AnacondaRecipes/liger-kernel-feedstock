@@ -11,6 +11,8 @@ source:
 
 build:
   number: 0
+  # triton (a hard runtime dep) is only available on linux-64 on pkgs/main
+  skip: true  # [not linux64]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:

@@ -1,0 +1,60 @@
+{% set name = "liger-kernel" %}
+{% set version = "0.8.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.org/packages/source/l/{{ name }}/liger_kernel-{{ version }}.tar.gz
+  sha256: f98b94faf018814a0757e7b72bb8ebaaf12a78782cd09b157732acca2791e72c
+
+build:
+  number: 0
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
+
+requirements:
+  host:
+    - python
+    - pip
+    - setuptools >=42
+    - setuptools-scm
+    - wheel
+  run:
+    - python
+    - pytorch >=2.1.2
+    - triton >=2.3.1
+
+test:
+  imports:
+    - liger_kernel
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  home: https://github.com/linkedin/Liger-Kernel
+  license: BSD-2-Clause AND MIT AND Apache-2.0
+  license_family: BSD
+  license_file:
+    - LICENSE
+    - NOTICE
+    - licenses/LICENSE-MIT-Efficient-Cross-Entropy
+    - licenses/LICENSE-MIT-triton
+    - licenses/LICENSE-MIT-llmc
+    - licenses/LICENSE-Apache-2.0
+    - licenses/LICENSE-MIT-AutoAWQ
+  summary: Efficient Triton kernels for LLM Training
+  description: |
+    Liger Kernel is a collection of Triton kernels designed for LLM training,
+    providing drop-in replacements for common layers (RMSNorm, RoPE, SwiGLU,
+    cross-entropy, and fused linear variants) that reduce memory use and increase
+    multi-GPU training throughput.
+  doc_url: https://github.com/linkedin/Liger-Kernel
+  dev_url: https://github.com/linkedin/Liger-Kernel
+
+extra:
+  recipe-maintainers:
+    - chrisdeutsch
+    - LeeNethertonQC

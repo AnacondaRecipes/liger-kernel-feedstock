@@ -24,6 +24,7 @@ requirements:
     - wheel
   run:
     - python
+    - packaging
     - pytorch >=2.1.2
     - triton >=2.3.1
   run_constrained:

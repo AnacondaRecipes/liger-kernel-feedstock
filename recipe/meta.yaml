@@ -30,6 +30,9 @@ requirements:
 test:
   imports:
     - liger_kernel
+    - liger_kernel.ops
+  imports:
+    - liger_kernel
   commands:
     - pip check
   requires:

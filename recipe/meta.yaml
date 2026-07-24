@@ -1,5 +1,5 @@
 {% set name = "liger-kernel" %}
-{% set version = "0.8.0" %}
+{% set version = "0.7.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/l/{{ name }}/liger_kernel-{{ version }}.tar.gz
-  sha256: f98b94faf018814a0757e7b72bb8ebaaf12a78782cd09b157732acca2791e72c
+  sha256: 48c25648974c7d07d47591117b94188d1059999b7fb652e89e8ba50b21183cb3
 
 build:
   number: 0

@@ -1,5 +1,5 @@
 {% set name = "liger-kernel" %}
-{% set version = "0.8.0" %}
+{% set version = "0.8.5" %}
 
 package:
   name: {{ name|lower }}
@@ -7,12 +7,12 @@ package:
 
 source:
   url: https://pypi.org/packages/source/l/{{ name }}/liger_kernel-{{ version }}.tar.gz
-  sha256: f98b94faf018814a0757e7b72bb8ebaaf12a78782cd09b157732acca2791e72c
+  sha256: 4e8f8f611a8ad735c37c989410d09820bb08881f131851a3967c34baa7889d66
 
 build:
   number: 0
   # triton (a hard runtime dep) is only available on linux-64 on pkgs/main
-  skip: true  # [not linux64]
+  skip: true  # [py<310 or not linux64]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
@@ -29,7 +29,14 @@ requirements:
     - triton >=2.3.1
   run_constrained:
     # liger_kernel.transformers monkey-patches HF models; guarded `try: import transformers`
-    - transformers >=4.52.0
+    - transformers >=5.0.0
+    # cutile
+    - cuda-tile >=1.5.0
+    # cutedsl
+    - nvidia-cutlass-dsl >=4.6.0
+    - apache-tvm-ffi >=0.1.0
+    # lck
+    - liger-cute-kernels =={{ version }}
 
 test:
   imports:
@@ -37,6 +44,7 @@ test:
     - liger_kernel.ops
   commands:
     - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
   requires:
     - pip
 
